@@ -23,6 +23,18 @@ import java.util.List;
 public class MyShouYeDianNaoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context context;
     private List<ShouYeBean.TuijianBean.ListBean> list;
+    //2、定义一个属性
+    private MyShouYeDianNaoAdapter.OnItemClickListener onItemClickListener;
+
+    //1、接口回调第一步，先定义一个接口
+    public interface OnItemClickListener {
+        public void onItemClick(ShouYeBean.TuijianBean.ListBean listBean);
+    }
+
+    //3、定义一个方法
+    public void setOnItemClickListener(MyShouYeDianNaoAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public MyShouYeDianNaoAdapter(Context context, List<ShouYeBean.TuijianBean.ListBean> list) {
         this.context = context;

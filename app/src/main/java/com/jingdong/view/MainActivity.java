@@ -28,7 +28,7 @@ import java.util.Map;
  * 作者:韩帅帅
  * 详情:
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener , IMainActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,IMainActivity {
 
     /**
      * 分享到QQ
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         web.setThumb(thumb);
         web.setDescription("骚年,你的功力还差远呢!!");
         web.setTitle("HackerTyper Neo");
-        new ShareAction(MainActivity.this).withMedia(web).setPlatform(SHARE_MEDIA.QQ).setCallback(shareListener).share();
+        new ShareAction(MainActivity.this).withMedia(web).setPlatform(SHARE_MEDIA.QZONE).setCallback(shareListener).share();
     }
 
     private UMShareListener shareListener = new UMShareListener() {
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 temp = temp + key + " : " + data.get(key) + "\n";
             }
             Toast.makeText(MainActivity.this, "登录成功!!!", Toast.LENGTH_LONG).show();
-            toClassAc("15");
+            toClassAc("1775");
         }
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {

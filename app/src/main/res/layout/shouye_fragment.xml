@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".view.frafment.ShouyeFragment">
+
+    <com.youth.banner.Banner
+        android:id="@+id/shouyebanner"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"></com.youth.banner.Banner>
 
     <!--标题栏开始-->
     <LinearLayout
@@ -17,7 +21,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:background="@drawable/leftjiantou" />
+            android:background="@drawable/a_s" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,6 +41,7 @@
                 android:background="@drawable/fadajing" />
 
             <EditText
+                android:hint="搜索笔记本"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -48,34 +53,30 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/info_show_type"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/a9x" />
+            android:background="@drawable/a9x"/>
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/colorDark"></View>
     <!--标题栏结束-->
-    <com.youth.banner.Banner
-        android:id="@+id/shouyebanner"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"></com.youth.banner.Banner>
 
     <ImageView
+        android:id="@+id/syiv"
+        android:layout_below="@+id/shouyebanner"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/timg" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/syiv"
         android:id="@+id/zhuyerecycleview"
         android:layout_width="match_parent"
         android:layout_height="140dp"></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
+        android:layout_below="@+id/zhuyerecycleview"
+        android:id="@+id/rlms"
         android:layout_width="match_parent"
         android:layout_height="20dp">
 
@@ -99,20 +100,22 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/rlms"
         android:id="@+id/zhuyerecycleview2"
         android:layout_width="match_parent"
         android:layout_height="150dp"></android.support.v7.widget.RecyclerView>
 
     <TextView
+        android:layout_below="@+id/zhuyerecycleview2"
         android:id="@+id/shouyetuijian"
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:gravity="center_horizontal"
         android:textColor="#ff3360" />
     <android.support.v7.widget.RecyclerView
-        android:layout_weight="1"
+        android:layout_below="@+id/shouyetuijian"
         android:id="@+id/zhuyerecycleview3"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>

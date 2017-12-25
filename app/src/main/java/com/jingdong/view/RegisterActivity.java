@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.jingdong.R;
 import com.jingdong.presenter.RegisterPresenter;
 import com.jingdong.view.IView.IRegisterActivity;
+
 /**
  * 时间:2017/12/3 21:19
  * 作者:韩帅帅
@@ -49,16 +50,18 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
         mIvPwd = (ImageView) findViewById(R.id.iv_pwd);
         mBtLogin = (Button) findViewById(R.id.bt_login);
         mBtLogin.setOnClickListener(this);
+        mIvBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            default:
-                break;
             case R.id.bt_login:
                 //注册
                 registerPresenter.register();
+                break;
+            case R.id.iv_back:
+                this.finish();
                 break;
         }
     }

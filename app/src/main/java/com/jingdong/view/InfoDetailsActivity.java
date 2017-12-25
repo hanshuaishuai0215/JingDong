@@ -26,7 +26,7 @@ import java.util.List;
  * 作者:韩帅帅
  * 详情:
  */
-public class InfoDetailsActivity extends AppCompatActivity implements View.OnClickListener,IInfoDetailsActivity {
+public class InfoDetailsActivity extends AppCompatActivity implements View.OnClickListener, IInfoDetailsActivity {
 
     private ImageView mInfoShowType;
     /**
@@ -53,6 +53,7 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
     private String sort = "0";
     private MyAdapter myAdapter;
     private boolean type = true;
+    private ImageView mDetailsReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,7 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_info_details);
         infoDetailsPresenter = new InfoDetailsPresenter(this);
         String pscid = getIntent().getStringExtra("pscid");
-        infoDetailsPresenter.getProductDetail(pscid,page,sort);
+        infoDetailsPresenter.getProductDetail(pscid, page, sort);
         initView();
     }
 
@@ -73,25 +74,30 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
         mInfoTvShaixuan = (TextView) findViewById(R.id.info_tvShaixuan);
         mInfoRv = (RecyclerView) findViewById(R.id.info_rv);
         mInfoSrl = (SwipeRefreshLayout) findViewById(R.id.info_srl);
+        mDetailsReturn = (ImageView) findViewById(R.id.details_return);
+        mDetailsReturn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.info_show_type:
-                type =!type;
+                type = !type;
                 if (type) {
                     LinearLayoutManager manager = new LinearLayoutManager(this);
-                    Toast.makeText(this,"线性的!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "线性的!!!", Toast.LENGTH_SHORT).show();
                     Glide.with(this).load(R.drawable.grid_icon).into(mInfoShowType);
                     mInfoRv.setLayoutManager(manager);
                 } else {
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
-                    Toast.makeText(this,"网格的!!!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "网格的!!!", Toast.LENGTH_SHORT).show();
                     Glide.with(this).load(R.drawable.lv_icon).into(mInfoShowType);
                     mInfoRv.setLayoutManager(gridLayoutManager);
                 }
                 setAdapter();
+                break;
+            case R.id.details_return:
+                this.finish();
                 break;
         }
     }
@@ -104,7 +110,8 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
         Glide.with(this).load(R.drawable.grid_icon).into(mInfoShowType);
         setAdapter();
     }
-    public void setAdapter(){
+
+    public void setAdapter() {
         myAdapter = new MyAdapter(InfoDetailsActivity.this, dataBeanList);
         mInfoRv.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();

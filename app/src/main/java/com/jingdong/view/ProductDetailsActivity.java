@@ -26,12 +26,13 @@ import com.jingdong.view.frafment.Pro_GoodsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 时间:2017/12/16 12:32
  * 作者:韩帅帅
  * 详情:
  */
-public class ProductDetailsActivity extends AppCompatActivity implements View.OnClickListener,IProDetailActivity {
+public class ProductDetailsActivity extends AppCompatActivity implements View.OnClickListener, IProDetailActivity {
 
     private ImageView mIvBack;
     /**
@@ -69,8 +70,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         //接收pid
         Intent intent = getIntent();
         pid = intent.getStringExtra("pid");
-        getSharedPreferences("user",Context.MODE_PRIVATE).edit().putString("pid",pid).commit();
-        Log.e("ProductDetailsActivity","pid:"+pid);
+        getSharedPreferences("user", Context.MODE_PRIVATE).edit().putString("pid", pid).commit();
+        Log.e("ProductDetailsActivity", "pid:" + pid);
         addCardPresenter = new AddCardPresenter(this);
         initView();
         //给viewPager填充内容
@@ -107,6 +108,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
         mLlCard.setOnClickListener(this);
         mTvAddCard = (TextView) findViewById(R.id.tvAddCard);
         mTvAddCard.setOnClickListener(this);
+        mIvBack.setOnClickListener(this);
+        mRbGoods.setOnClickListener(this);
+        mRbDetails.setOnClickListener(this);
+        mRbAppraise.setOnClickListener(this);
     }
 
     @Override
@@ -127,6 +132,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
                 addCardPresenter.addCard(pid, sp.getString("uid", ""));
                 break;
+            case R.id.ivBack:
+                this.finish();
+                break;
+            case R.id.rbGoods:
+                mVp.setCurrentItem(0);
+                break;
+            case R.id.rbDetails:
+                mVp.setCurrentItem(1);
+                break;
+            case R.id.rbAppraise:
+                mVp.setCurrentItem(2);
+                break;
         }
     }
 
@@ -142,6 +159,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     public void show(String str) {
         Toast.makeText(ProductDetailsActivity.this, str, Toast.LENGTH_SHORT).show();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

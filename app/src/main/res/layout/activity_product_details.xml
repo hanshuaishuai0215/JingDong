@@ -94,7 +94,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/dianpu" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,9 +130,9 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="25dp"
+                android:layout_width="23dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/gz" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,7 +151,7 @@
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@drawable/shopcar" />
 
             <TextView
                 android:layout_width="wrap_content"

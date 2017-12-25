@@ -24,6 +24,18 @@ import java.util.List;
 public class MyShouYePhoneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private Context context;
     private List<ShouYeBean.MiaoshaBean.ListBeanX> list;
+    //2、定义一个属性
+    private MyShouYePhoneAdapter.OnItemClickListener onItemClickListener;
+
+    //1、接口回调第一步，先定义一个接口
+    public interface OnItemClickListener {
+        public void onItemClick(ShouYeBean.MiaoshaBean.ListBeanX listBean);
+    }
+
+    //3、定义一个方法
+    public void setOnItemClickListener(MyShouYePhoneAdapter.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public MyShouYePhoneAdapter(Context context, List<ShouYeBean.MiaoshaBean.ListBeanX> list) {
         this.context = context;
