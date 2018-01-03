@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.jingdong.R;
 import com.jingdong.view.frafment.FaxianFragment;
@@ -17,6 +18,7 @@ import com.jingdong.view.frafment.ShouyeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 时间:2017/12/3 21:18
  * 作者:韩帅帅
@@ -32,13 +34,16 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton mMine;
     private List<Fragment> list_f;
     private boolean noScroll = true; //true 代表不能滑动 //false 代表能滑动
+    private RadioGroup mRg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
+        int goCar = getIntent().getIntExtra("goCar", 0);
         initView();
         newFragment();
-
+        goCar(goCar);
     }
 
     private void newFragment() {
@@ -80,6 +85,7 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
         mFaxian.setOnClickListener(this);
         mGouwu.setOnClickListener(this);
         mMine.setOnClickListener(this);
+        mRg = (RadioGroup) findViewById(R.id.rg);
     }
 
     @Override
@@ -101,6 +107,31 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.mine:
                 mVp.setCurrentItem(4);
+                break;
+        }
+    }
+
+    private void goCar(final int page) {
+        switch (page) {
+            case 0:
+                mVp.setCurrentItem(0);
+                mRg.check(mShouye.getId());
+                break;
+            case 1:
+                mVp.setCurrentItem(1);
+                mRg.check(mFenlei.getId());
+                break;
+            case 2:
+                mVp.setCurrentItem(2);
+                mRg.check(mFaxian.getId());
+                break;
+            case 3:
+                mVp.setCurrentItem(3);
+                mRg.check(mGouwu.getId());
+                break;
+            case 4:
+                mVp.setCurrentItem(4);
+                mRg.check(mMine.getId());
                 break;
         }
     }

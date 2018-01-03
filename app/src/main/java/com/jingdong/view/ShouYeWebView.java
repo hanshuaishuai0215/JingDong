@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.jingdong.R;
 /**
@@ -30,7 +29,7 @@ public class ShouYeWebView extends AppCompatActivity {
         webViewUrl = intent.getStringExtra("WebViewUrl");
         //WebView加载web资源
         mShouyeWebview.loadUrl(webViewUrl);
-        //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
+      /*  //覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         mShouyeWebview.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -39,7 +38,7 @@ public class ShouYeWebView extends AppCompatActivity {
                 view.loadUrl(url);
                 return true;
             }
-        });
+        });*/
     }
 
 }

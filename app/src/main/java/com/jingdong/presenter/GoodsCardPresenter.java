@@ -4,7 +4,7 @@ import com.jingdong.bean.GoodsCardBean;
 import com.jingdong.model.GoodsCardModel;
 import com.jingdong.model.IModel.IGoodsCardModel;
 import com.jingdong.net.OnNetListener;
-import com.jingdong.view.IView.IGoodsCardActivity;
+import com.jingdong.view.IView.IGoodsCardFragment;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +19,10 @@ import java.util.Map;
 
 public class GoodsCardPresenter {
     private IGoodsCardModel iGoodsCardModel;
-    private IGoodsCardActivity iGoodsCardActivity;
+    private IGoodsCardFragment iGoodsCardFragment;
 
-    public GoodsCardPresenter(IGoodsCardActivity iGoodsCardActivity) {
-        this.iGoodsCardActivity = iGoodsCardActivity;
+    public GoodsCardPresenter(IGoodsCardFragment iGoodsCardFragment) {
+        this.iGoodsCardFragment = iGoodsCardFragment;
         iGoodsCardModel = new GoodsCardModel();
     }
     public void getCards(String uid) {
@@ -36,8 +36,8 @@ public class GoodsCardPresenter {
                 for (int i = 0; i < goodsCardBean.getData().size(); i++) {
                     child.add(goodsCardBean.getData().get(i).getList());
                 }
-                if (iGoodsCardActivity != null) {
-                    iGoodsCardActivity.show(goodsCardBean.getData(), child);
+                if (iGoodsCardFragment != null) {
+                    iGoodsCardFragment.show(goodsCardBean.getData(), child);
                 }
             }
 
@@ -49,6 +49,6 @@ public class GoodsCardPresenter {
     }
 
     public void dettach() {
-        iGoodsCardActivity = null;
+        iGoodsCardFragment = null;
     }
 }

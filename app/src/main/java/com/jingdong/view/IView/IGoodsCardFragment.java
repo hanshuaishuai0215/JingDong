@@ -10,6 +10,6 @@ import java.util.List;
  * 详情:
  */
 
-public interface IGoodsCardActivity {
+public interface IGoodsCardFragment {
     void show(List<GoodsCardBean.DataBean> group, List<List<GoodsCardBean.DataBean.ListBean>> child);
 }

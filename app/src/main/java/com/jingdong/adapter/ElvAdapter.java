@@ -17,8 +17,8 @@ import com.jingdong.R;
 import com.jingdong.bean.GoodsCardBean;
 import com.jingdong.bean.PriceAndCount;
 import com.jingdong.presenter.DeleteCardPresenter;
-import com.jingdong.view.GoodsCardActivity;
 import com.jingdong.view.IView.IDelCard;
+import com.jingdong.view.frafment.GouwuFragment;
 
 import java.util.List;
 /**
@@ -104,14 +104,13 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
                 //改变子列表中的所有checkbox的状态
                 setChildsChecked(groupPosition, holder.cbGroup.isChecked());
                 //改变全选状态
-                ((GoodsCardActivity) context).setAllSelect(isGroupCbChecked());
+                GouwuFragment.setAllSelect(isGroupCbChecked());
                 //计算钱和数量
                 setPriceAndCount();
                 //刷新列表
                 notifyDataSetChanged();
             }
         });
-
         return view;
     }
 
@@ -189,7 +188,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
                 listBean.setChecked(holder.cbChild.isChecked());
                 group.get(groupPosition).setChecked(isChildsCbChecked(groupPosition));
                 //如果某个一级列表下的二级列表全部选中时，则要判断其它的一级列表是否都选中，去改变“全选”状态
-                ((GoodsCardActivity) context).setAllSelect(isGroupCbChecked());
+                GouwuFragment.setAllSelect(isGroupCbChecked());
                 setPriceAndCount();
                 //刷新页面
                 notifyDataSetChanged();
@@ -218,7 +217,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
         //计算数量和钱
         setPriceAndCount();
         //如果某个一级列表下的二级列表全部选中时，则要判断其它的一级列表是否都选中，去改变“全选”状态
-        ((GoodsCardActivity) context).setAllSelect(isGroupCbChecked());
+        GouwuFragment.setAllSelect(isGroupCbChecked());
         //刷新列表
         notifyDataSetChanged();
 
@@ -306,8 +305,8 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
      */
     private void setPriceAndCount() {
         PriceAndCount priceAndCount = computePrice();
-        ((GoodsCardActivity) context).setMoney(priceAndCount.getPrice());
-        ((GoodsCardActivity) context).setCount(priceAndCount.getCount());
+        GouwuFragment.setMoney(priceAndCount.getPrice());
+        GouwuFragment.setCount(priceAndCount.getCount());
     }
 
     /**
@@ -346,6 +345,5 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
         setPriceAndCount();
         //刷新页面
         notifyDataSetChanged();
-
     }
 }

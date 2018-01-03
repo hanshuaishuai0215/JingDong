@@ -124,7 +124,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.llCard:
                 //跳转到购物车界面
-                Intent intent = new Intent(ProductDetailsActivity.this, GoodsCardActivity.class);
+                Intent intent = new Intent(ProductDetailsActivity.this, BossActivity.class);
+                intent.putExtra("goCar",3);
                 startActivity(intent);
                 break;
             case R.id.tvAddCard:

@@ -30,7 +30,6 @@
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,7 +87,9 @@
         <service android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false"></service>
         -->
-        <activity android:name=".view.BossActivity" />
+        <activity android:name=".view.BossActivity">
+
+        </activity>
         <activity android:name=".view.frafment.MineFragment" />
         <activity android:name=".view.frafment.ShouyeFragment" />
         <activity android:name=".view.frafment.FenleiFragment" />
@@ -96,7 +97,6 @@
         <activity android:name=".view.frafment.GouwuFragment" />
         <activity android:name=".view.ShouYeWebView" />
         <activity android:name=".view.ProductDetailsActivity" />
-        <activity android:name=".view.GoodsCardActivity"></activity>
     </application>
 
 </manifest>
