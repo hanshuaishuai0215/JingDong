@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.MyRvMiddleBean;
 import com.jingdong.bean.ShouYeBean;
 import com.jingdong.model.IModel.IShouYeModel;
@@ -21,22 +24,24 @@ public class ShouYePresenter {
         this.iShouYeModel = new ShouYeModel();
         this.iShouYeFragment = iShouYeFragment;
     }
-    public void getBannerUrl(){
-        iShouYeModel.getBannerUrl(new OnNetListener<ShouYeBean>() {
+    public void getBannerUrl(final Context context){
+        iShouYeModel.getBannerUrl(context,new OnNetListener<ShouYeBean>() {
             @Override
             public void onSuccess(ShouYeBean shouYeBean) {
-                iShouYeFragment.shouBanner(shouYeBean.getData());
-                iShouYeFragment.shouYeRV(shouYeBean);
+                if (iShouYeFragment != null) {
+                    iShouYeFragment.shouBanner(shouYeBean.getData());
+                    iShouYeFragment.shouYeRV(shouYeBean);
+                }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-    public void getMiddleViewUrl(){
-        iShouYeModel.getMiddleViewUrl(new OnNetListener<MyRvMiddleBean>() {
+    public void getMiddleViewUrl(final Context context){
+        iShouYeModel.getMiddleViewUrl(context,new OnNetListener<MyRvMiddleBean>() {
             @Override
             public void onSuccess(MyRvMiddleBean myRvMiddleBean) {
                 iShouYeFragment.middleView(myRvMiddleBean.getData());
@@ -44,8 +49,14 @@ public class ShouYePresenter {
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    /**
+     * 销毁
+     */
+    public void Dettach() {
+        iShouYeFragment = null;
     }
 }

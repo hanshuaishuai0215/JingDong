@@ -12,6 +12,7 @@ import android.webkit.WebViewClient;
 
 import com.jingdong.R;
 
+
 /**
  * 时间:2017/12/3 21:08
  * 作者:韩帅帅
@@ -19,7 +20,6 @@ import com.jingdong.R;
  */
 public class FaxianFragment extends Fragment {
 
-    private View view;
     private WebView mFaxianWebview;
 
     @Nullable
@@ -64,5 +64,6 @@ public class FaxianFragment extends Fragment {
         }
         super.onDestroy();
     }
+
 
 }

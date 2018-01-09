@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.jingdong.R;
 import com.jingdong.adapter.VpDetailsAdapter;
+import com.jingdong.bean.BaseBean;
 import com.jingdong.presenter.AddCardPresenter;
 import com.jingdong.view.IView.IProDetailActivity;
 import com.jingdong.view.frafment.Pro_AppraiseFragment;
@@ -131,7 +132,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             case R.id.tvAddCard:
                 //加入购物车
                 SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
-                addCardPresenter.addCard(pid, sp.getString("uid", ""));
+                addCardPresenter.addCard(this,pid, sp.getString("uid", ""));
                 break;
             case R.id.ivBack:
                 this.finish();
@@ -157,13 +158,19 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
     }
 
     @Override
-    public void show(String str) {
-        Toast.makeText(ProductDetailsActivity.this, str, Toast.LENGTH_SHORT).show();
+    public void show(BaseBean baseBean) {
+        if (baseBean.getCode().equals("0")) {
+            Toast.makeText(ProductDetailsActivity.this, baseBean.getMsg(), Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(ProductDetailsActivity.this, "宝贝!你还没有登陆呢?请登录!!!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(ProductDetailsActivity.this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        addCardPresenter.dettach();
+        addCardPresenter.Dettach();
     }
 }

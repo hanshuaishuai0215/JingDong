@@ -2,6 +2,8 @@ package com.jingdong.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
      */
     private Button mBtLogin;
     private RegisterPresenter registerPresenter;
+    private boolean typePwd = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
         mBtLogin = (Button) findViewById(R.id.bt_login);
         mBtLogin.setOnClickListener(this);
         mIvBack.setOnClickListener(this);
+        mIvPwd.setOnClickListener(this);
     }
 
     @Override
@@ -58,10 +62,20 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
         switch (v.getId()) {
             case R.id.bt_login:
                 //注册
-                registerPresenter.register();
+                registerPresenter.register(this);
                 break;
             case R.id.iv_back:
                 this.finish();
+                break;
+            case R.id.iv_pwd:
+                typePwd = !typePwd;
+                if (!typePwd) {
+                    //如果选中，显示密码
+                    mEtPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }else {
+                    //否则隐藏密码
+                    mEtPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
                 break;
         }
     }
@@ -84,5 +98,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterActi
     @Override
     public void show(String str) {
         Toast.makeText(RegisterActivity.this, str, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        registerPresenter.Dettach();
     }
 }

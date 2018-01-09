@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.InfoDetailsBean;
 import com.jingdong.net.OnNetListener;
 
@@ -12,5 +14,5 @@ import java.util.Map;
  */
 
 public interface IInfoDetailsModel {
-  public void getInfoDetails(Map<String,String> params, OnNetListener<InfoDetailsBean> onNetListener);
+  public void getInfoDetails(Context context, Map<String,String> params, OnNetListener<InfoDetailsBean> onNetListener);
 }

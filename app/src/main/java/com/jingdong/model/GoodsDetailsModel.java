@@ -1,5 +1,7 @@
 package com.jingdong.model;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.GoodsDetailsBean;
 import com.jingdong.model.IModel.IGoodsDetailsModel;
@@ -21,9 +23,9 @@ import okhttp3.Response;
 
 public class GoodsDetailsModel extends BaseModel implements IGoodsDetailsModel{
     @Override
-    public void getProductDetail(String pid, final OnNetListener<GoodsDetailsBean> onNetListener) {
+    public void getProductDetail(Context context, String pid, final OnNetListener<GoodsDetailsBean> onNetListener) {
         String url = String.format(Api.PRODUCT_DETAIL, pid);
-        HttpUtils.getHttpUtils().doGet(url, new Callback() {
+        HttpUtils.getHttpUtils(context).doGet(url, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {

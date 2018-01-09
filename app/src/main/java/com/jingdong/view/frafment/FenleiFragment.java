@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+
 import com.jingdong.R;
 import com.jingdong.adapter.LeftAdapter;
 import com.jingdong.adapter.RightAdapter;
@@ -42,7 +43,7 @@ public class FenleiFragment extends Fragment implements IClassActivity{
       classPresenter = new ClassPresenter(this);
       initView();
       //去P层，调用getCatagory
-      classPresenter.getCatagory();
+      classPresenter.getCatagory(getActivity());
       //给listview 设置点击事件
       mLvLeft.setOnItemClickListener(new AdapterView.OnItemClickListener() {
          @Override
@@ -52,7 +53,7 @@ public class FenleiFragment extends Fragment implements IClassActivity{
             //先获取cid
             Catagory.DataBean dataBean = (Catagory.DataBean) parent.getItemAtPosition(position);
             int cid = dataBean.getCid();
-            classPresenter.getProductCatagory(cid + "");
+            classPresenter.getProductCatagory(getActivity(),cid + "");
          }
       });
       return view;
@@ -104,4 +105,14 @@ public class FenleiFragment extends Fragment implements IClassActivity{
          mElv.expandGroup(i);
       }
    }
+
+   /**
+    * 销毁
+    */
+   @Override
+   public void onDestroyView() {
+      super.onDestroyView();
+      classPresenter.Dettach();
+   }
+
 }

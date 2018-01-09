@@ -1,6 +1,8 @@
 package com.jingdong.model.IModel;
 
 
+import android.content.Context;
+
 import com.jingdong.bean.Catagory;
 import com.jingdong.bean.ProductCatagoryBean;
 import com.jingdong.net.OnNetListener;
@@ -12,7 +14,7 @@ import com.jingdong.net.OnNetListener;
  */
 public interface IClassModel {
 
-    public void getCatagory(OnNetListener<Catagory> onNetListener);
+    public void getCatagory(Context context, OnNetListener<Catagory> onNetListener);
 
-    public void getProductCatagory(String cid, OnNetListener<ProductCatagoryBean> onNetListener);
+    public void getProductCatagory(Context context,String cid, OnNetListener<ProductCatagoryBean> onNetListener);
 }

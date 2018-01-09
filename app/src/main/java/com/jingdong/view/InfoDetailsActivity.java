@@ -1,12 +1,15 @@
 package com.jingdong.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import com.jingdong.R;
 import com.jingdong.adapter.MyAdapter;
 import com.jingdong.bean.InfoDetailsBean;
 import com.jingdong.presenter.InfoDetailsPresenter;
+import com.jingdong.presenter.SelectGoodsPresenter;
 import com.jingdong.view.IView.IInfoDetailsActivity;
 
 import java.util.ArrayList;
@@ -54,14 +58,22 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
     private MyAdapter myAdapter;
     private boolean type = true;
     private ImageView mDetailsReturn;
+    private SelectGoodsPresenter selectGoodsPresenter;
+    private EditText mSelectEtName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_details);
-        infoDetailsPresenter = new InfoDetailsPresenter(this);
         String pscid = getIntent().getStringExtra("pscid");
-        infoDetailsPresenter.getProductDetail(pscid, page, sort);
+        String goodsName = getIntent().getStringExtra("goodsName");
+        if (!TextUtils.isEmpty(pscid)) {
+            infoDetailsPresenter = new InfoDetailsPresenter(this);
+            infoDetailsPresenter.getProductDetail(this,pscid, page, sort);
+        } else if (!TextUtils.isEmpty(goodsName)) {
+            selectGoodsPresenter = new SelectGoodsPresenter(this);
+            selectGoodsPresenter.SelectGoods(this,goodsName, "", "");
+        }
         initView();
     }
 
@@ -76,6 +88,8 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
         mInfoSrl = (SwipeRefreshLayout) findViewById(R.id.info_srl);
         mDetailsReturn = (ImageView) findViewById(R.id.details_return);
         mDetailsReturn.setOnClickListener(this);
+        mSelectEtName = (EditText) findViewById(R.id.selectEtName);
+        mSelectEtName.setOnClickListener(this);
     }
 
     @Override
@@ -99,6 +113,10 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
             case R.id.details_return:
                 this.finish();
                 break;
+            case R.id.selectEtName:
+                Intent intent = new Intent(InfoDetailsActivity.this,SelectShopActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -111,9 +129,29 @@ public class InfoDetailsActivity extends AppCompatActivity implements View.OnCli
         setAdapter();
     }
 
+    @Override
+    public void showSelectList(List<InfoDetailsBean.DataBean> dataBeanLists) {
+        if (dataBeanLists.size() < 1) {
+            Toast.makeText(InfoDetailsActivity.this, "亲,很抱歉,没有搜索到相关产品呢!!!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        dataBeanList.addAll(dataBeanLists);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mInfoRv.setLayoutManager(manager);
+        Glide.with(this).load(R.drawable.grid_icon).into(mInfoShowType);
+        setAdapter();
+    }
+
     public void setAdapter() {
         myAdapter = new MyAdapter(InfoDetailsActivity.this, dataBeanList);
         mInfoRv.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        infoDetailsPresenter.Dettach();
+        selectGoodsPresenter.Dettach();
     }
 }

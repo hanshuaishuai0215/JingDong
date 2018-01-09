@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.GoodsCardBean;
 import com.jingdong.model.GoodsCardModel;
 import com.jingdong.model.IModel.IGoodsCardModel;
@@ -25,11 +28,11 @@ public class GoodsCardPresenter {
         this.iGoodsCardFragment = iGoodsCardFragment;
         iGoodsCardModel = new GoodsCardModel();
     }
-    public void getCards(String uid) {
+    public void getCards(final Context context, String uid) {
         Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
         params.put("source","android");
-        iGoodsCardModel.getCarts(params, new OnNetListener<GoodsCardBean>() {
+        iGoodsCardModel.getCarts(context,params, new OnNetListener<GoodsCardBean>() {
             @Override
             public void onSuccess(GoodsCardBean goodsCardBean) {
                 List<List<GoodsCardBean.DataBean.ListBean>> child = new ArrayList<>();
@@ -43,12 +46,12 @@ public class GoodsCardPresenter {
 
             @Override
             public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void dettach() {
+    public void Dettach() {
         iGoodsCardFragment = null;
     }
 }

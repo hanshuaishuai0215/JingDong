@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.BaseBean;
 import com.jingdong.net.OnNetListener;
 
@@ -12,5 +14,5 @@ import java.util.Map;
  */
 
 public interface IDeleteCardMolde {
-    void deleteCart(Map<String,String> params, OnNetListener<BaseBean> onNetListener);
+    void deleteCart(Context context, Map<String,String> params, OnNetListener<BaseBean> onNetListener);
 }

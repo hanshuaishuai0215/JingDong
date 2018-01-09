@@ -1,6 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.jingdong.bean.LoginBean;
 import com.jingdong.model.IModel.ILoginModel;
@@ -9,6 +11,7 @@ import com.jingdong.model.LoginModel;
 import com.jingdong.model.RegisterModel;
 import com.jingdong.net.OnNetListener;
 import com.jingdong.view.IView.IMainActivity;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,24 +32,26 @@ public class MainPresenter {
         iRegisterModel = new RegisterModel();
     }
 
-    public void login() {
+    public void login(final Context context) {
         String account = iMainActivity.getAccount();
         String pwd = iMainActivity.getPwd();
         //判断账号密码是否正确
         if (checkAccount(account) && checkPwd(pwd)) {
             //去调用model，进行登陆
-            iLoginModel.login(account, pwd, new OnNetListener<LoginBean>() {
+            iLoginModel.login(context,account, pwd, new OnNetListener<LoginBean>() {
                 @Override
                 public void onSuccess(LoginBean loginBean) {
-                    //保存登陆成功后的数据，可以保存到SP,也可以保存到数据库
-                    iMainActivity.show(loginBean.getMsg());
-                    //跳转到分类界面
-                    iMainActivity.toClassAc(loginBean.getData().getUid()+"");
+                    if (iMainActivity != null) {
+                        //保存登陆成功后的数据，可以保存到SP,也可以保存到数据库
+                        iMainActivity.show(loginBean.getMsg());
+                        //跳转到分类界面
+                        iMainActivity.toClassAc(loginBean);
+                    }
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-
+                        Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -100,5 +105,11 @@ public class MainPresenter {
     public void register() {
         //其实就是跳转到注册页面
         iMainActivity.toRegisterAc();
+    }
+    /**
+     * 销毁
+     */
+    public void Dettach() {
+        iMainActivity = null;
     }
 }

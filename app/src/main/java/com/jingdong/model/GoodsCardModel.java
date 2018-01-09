@@ -1,5 +1,7 @@
 package com.jingdong.model;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.GoodsCardBean;
 import com.jingdong.model.IModel.IGoodsCardModel;
@@ -22,8 +24,8 @@ import okhttp3.Response;
 
 public class GoodsCardModel extends BaseModel implements IGoodsCardModel {
     @Override
-    public void getCarts(Map<String, String> params, final OnNetListener<GoodsCardBean> onNetListener) {
-        HttpUtils.getHttpUtils().doPost(Api.SELECT_CARD, params, new Callback() {
+    public void getCarts(Context context, Map<String, String> params, final OnNetListener<GoodsCardBean> onNetListener) {
+        HttpUtils.getHttpUtils(context).doPost(Api.SELECT_CARD, params, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {

@@ -1,5 +1,7 @@
 package com.jingdong.view.IView;
 
+import com.jingdong.bean.LoginBean;
+
 /**
  * 时间:2017/12/3 21:19
  * 作者:韩帅帅
@@ -15,5 +17,5 @@ public interface IMainActivity {
 
     public void toRegisterAc();
 
-    public void toClassAc(String uid);
+    public void toClassAc(LoginBean loginBean);
 }

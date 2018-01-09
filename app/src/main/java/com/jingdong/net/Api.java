@@ -21,4 +21,12 @@ public interface Api {
     public static final String PRODUCT_DETAIL = HOST + "/product/getProductDetail?pid=%s&source=android";
     public static final String SELECT_CARD = HOST + "/product/getCarts";
     public static final String DEL_CARD = HOST + "/product/deleteCart";
+    //创建订单接口
+    public static final String CREATEORDER = HOST + "/product/createOrder?uid=%s&price=%s";
+    //  修改订单状态
+    public static final String UPDATEORDER = HOST+"/product/updateOrder?uid=%s";
+    // 获取订单列表接口
+    public static final String  GETORDERS = HOST+"/product/getOrders";
+    //查询商品
+    public static final String  SEARCHPRODUCTS = HOST+"/product/searchProducts";
 }

@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.LoginBean;
 import com.jingdong.net.OnNetListener;
 
@@ -10,5 +12,5 @@ import com.jingdong.net.OnNetListener;
  */
 
 public interface ILoginModel {
-    public void login(String account, String pwd, OnNetListener<LoginBean> onNetListener);
+    public void login(Context context, String account, String pwd, OnNetListener<LoginBean> onNetListener);
 }

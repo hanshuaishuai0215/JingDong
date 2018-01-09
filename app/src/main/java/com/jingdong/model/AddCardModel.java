@@ -1,5 +1,7 @@
 package com.jingdong.model;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.BaseBean;
 import com.jingdong.model.IModel.IAddCardMolde;
@@ -22,8 +24,8 @@ import okhttp3.Response;
 
 public class AddCardModel extends BaseModel implements IAddCardMolde{
     @Override
-    public void addCard(Map<String, String> params, final OnNetListener<BaseBean> onNetListener) {
-        HttpUtils.getHttpUtils().doPost(Api.ADD_CARD, params, new Callback() {
+    public void addCard(Context context, Map<String, String> params, final OnNetListener<BaseBean> onNetListener) {
+        HttpUtils.getHttpUtils(context).doPost(Api.ADD_CARD, params, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {

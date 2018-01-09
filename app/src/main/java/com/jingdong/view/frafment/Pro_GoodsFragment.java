@@ -50,7 +50,7 @@ public class Pro_GoodsFragment extends Fragment implements IPro_GoodsFragment, P
         ((ProductDetailsActivity) getActivity()).setShareListener(this);
         goodsDetailsPresenter = new GoodsDetailsPresenter(this);
         //调用接口
-        goodsDetailsPresenter.getProductDetail(pid);
+        goodsDetailsPresenter.getProductDetail(getActivity(),pid);
         initView(view);
         return view;
     }
@@ -81,10 +81,13 @@ public class Pro_GoodsFragment extends Fragment implements IPro_GoodsFragment, P
         shareWeb(R.drawable.flag_02);
     }
 
+    /**
+     * 销毁
+     */
     @Override
-    public void onDetach() {
-        super.onDetach();
-        goodsDetailsPresenter.dettach();
+    public void onDestroyView() {
+        super.onDestroyView();
+        goodsDetailsPresenter.Dettach();
     }
 
     /**

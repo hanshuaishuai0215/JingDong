@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/sig02"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -58,6 +59,7 @@
             android:text="密码" />
 
         <EditText
+            android:inputType="numberPassword"
             android:id="@+id/et_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

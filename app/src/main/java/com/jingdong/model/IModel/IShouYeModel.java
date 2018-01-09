@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.MyRvMiddleBean;
 import com.jingdong.bean.ShouYeBean;
 import com.jingdong.net.OnNetListener;
@@ -11,6 +13,6 @@ import com.jingdong.net.OnNetListener;
  */
 
 public interface IShouYeModel {
-    public void getBannerUrl(OnNetListener<ShouYeBean> onNetListener);
-    public void getMiddleViewUrl(OnNetListener<MyRvMiddleBean> onNetListener);
+    public void getBannerUrl(Context context, OnNetListener<ShouYeBean> onNetListener);
+    public void getMiddleViewUrl(Context context,OnNetListener<MyRvMiddleBean> onNetListener);
 }

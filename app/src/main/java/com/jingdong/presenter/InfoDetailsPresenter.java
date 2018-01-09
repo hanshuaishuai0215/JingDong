@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.InfoDetailsBean;
 import com.jingdong.model.IModel.IInfoDetailsModel;
 import com.jingdong.model.InfoDetailsModel;
@@ -17,26 +20,36 @@ import java.util.HashMap;
 public class InfoDetailsPresenter {
     private IInfoDetailsModel infoDetailsModel;
     private IInfoDetailsActivity iInfoDetailsActivity;
+
     public InfoDetailsPresenter(IInfoDetailsActivity iInfoDetailsActivity) {
         this.iInfoDetailsActivity = iInfoDetailsActivity;
         infoDetailsModel = new InfoDetailsModel();
     }
-    public void getProductDetail(String pscid,String page,String sort){
+    public void getProductDetail(final Context context, String pscid, String page, String sort){
         HashMap<String, String> params = new HashMap<>();
         params.put("pscid",pscid);
         params.put("page",page);
         params.put("sort",sort);
         params.put("source","android");
-        infoDetailsModel.getInfoDetails(params, new OnNetListener<InfoDetailsBean>() {
+        infoDetailsModel.getInfoDetails(context,params, new OnNetListener<InfoDetailsBean>() {
             @Override
             public void onSuccess(InfoDetailsBean infoDetailsBean) {
-                iInfoDetailsActivity.showList(infoDetailsBean.getData());
+                if (iInfoDetailsActivity != null) {
+                    iInfoDetailsActivity.showList(infoDetailsBean.getData());
+                }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    /**
+     * 销毁
+     */
+    public void Dettach() {
+        iInfoDetailsActivity = null;
     }
 }

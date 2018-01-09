@@ -153,7 +153,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
                 SharedPreferences sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);
                 String uid = sp.getString("uid", "");
                 String pid = sp.getString("pid", "");
-                deleteCartPresenter.deleteCart(uid, pid);
+                deleteCartPresenter.deleteCart(context,uid, pid);
             }
         });
 

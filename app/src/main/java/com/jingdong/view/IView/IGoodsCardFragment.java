@@ -1,5 +1,6 @@
 package com.jingdong.view.IView;
 
+import com.jingdong.bean.BaseBean;
 import com.jingdong.bean.GoodsCardBean;
 
 import java.util.List;
@@ -12,4 +13,5 @@ import java.util.List;
 
 public interface IGoodsCardFragment {
     void show(List<GoodsCardBean.DataBean> group, List<List<GoodsCardBean.DataBean.ListBean>> child);
+    void showCreateOrder(BaseBean baseBean);
 }

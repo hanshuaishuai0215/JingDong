@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.GoodsDetailsBean;
 import com.jingdong.net.OnNetListener;
 
@@ -10,5 +12,5 @@ import com.jingdong.net.OnNetListener;
  */
 
 public interface IGoodsDetailsModel {
-    void getProductDetail(String pid, final OnNetListener<GoodsDetailsBean> onNetListener);
+    void getProductDetail(Context context, String pid, final OnNetListener<GoodsDetailsBean> onNetListener);
 }

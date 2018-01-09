@@ -1,5 +1,7 @@
 package com.jingdong.model;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.MyRvMiddleBean;
 import com.jingdong.bean.ShouYeBean;
@@ -23,8 +25,8 @@ import okhttp3.Response;
 public class ShouYeModel extends BaseModel implements IShouYeModel{
 
     @Override
-    public void getBannerUrl(final OnNetListener<ShouYeBean> onNetListener) {
-        HttpUtils.getHttpUtils().doGet(Api.ZHUYEURL, new Callback() {
+    public void getBannerUrl(Context context, final OnNetListener<ShouYeBean> onNetListener) {
+        HttpUtils.getHttpUtils(context).doGet(Api.ZHUYEURL, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {
@@ -50,8 +52,8 @@ public class ShouYeModel extends BaseModel implements IShouYeModel{
     }
 
     @Override
-    public void getMiddleViewUrl(final OnNetListener<MyRvMiddleBean> onNetListener) {
-        HttpUtils.getHttpUtils().doGet(Api.ZHUYEMIDDLEVIEW, new Callback() {
+    public void getMiddleViewUrl(Context context,final OnNetListener<MyRvMiddleBean> onNetListener) {
+        HttpUtils.getHttpUtils(context).doGet(Api.ZHUYEMIDDLEVIEW, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 onNetListener.onFailure(e);

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jingdong.R;
+import com.jingdong.bean.LoginBean;
 import com.jingdong.presenter.MainPresenter;
 import com.jingdong.view.IView.IMainActivity;
 import com.umeng.socialize.ShareAction;
@@ -131,12 +132,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
-            String temp = "";
-            for (String key : data.keySet()) {
-                temp = temp + key + " : " + data.get(key) + "\n";
-            }
             Toast.makeText(MainActivity.this, "登录成功!!!", Toast.LENGTH_LONG).show();
-            toClassAc("1775");
+            //保存uid
+            SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = sp.edit();
+            edit.putString("uid","1775");
+            edit.putString("uName",data.get("name"));
+            edit.putString("headimg",data.get("profile_image_url"));
+            edit.commit();
+            Intent intent = new Intent(MainActivity.this, BossActivity.class);
+            startActivity(intent);
         }
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
@@ -183,7 +188,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn2:
                 //授权第三方登录
-                UMShareAPI.get(MainActivity.this).doOauthVerify(MainActivity.this, SHARE_MEDIA.QQ, authListener);
+                UMShareAPI.get(this).getPlatformInfo(this, SHARE_MEDIA.QQ, authListener);//可以获取到用户信息
+                //UMShareAPI.get(MainActivity.this).doOauthVerify(MainActivity.this, SHARE_MEDIA.QQ, authListener);//获取不到用户信息
                 break;
             case R.id.btn_register:
                 mainPresenter.register();
@@ -193,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.et_pwd:
                 break;
             case R.id.btn_Login:
-                mainPresenter.login();
+                mainPresenter.login(this);
                 break;
             case R.id.textView:
                 break;
@@ -221,13 +227,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void toClassAc(String uid) {
+    public void toClassAc(LoginBean loginBean) {
+        if (loginBean.getCode().equals("1")){
+            mEtCount.setText(null);
+            mEtPwd.setText(null);
+            return;
+        }
         //保存uid
         SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("uid",uid);
+        edit.putString("uid",loginBean.getData().getUid()+"");
+        edit.putString("uName",loginBean.getData().getUsername());
         edit.commit();
         Intent intent = new Intent(MainActivity.this, BossActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mainPresenter.Dettach();
     }
 }

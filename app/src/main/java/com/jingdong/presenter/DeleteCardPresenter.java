@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.BaseBean;
 import com.jingdong.model.DeleteCardMolde;
 import com.jingdong.model.IModel.IDeleteCardMolde;
@@ -24,11 +27,11 @@ public class DeleteCardPresenter {
         iDeleteCardMolde = new DeleteCardMolde();
     }
 
-    public void deleteCart(String uid, String pid) {
+    public void deleteCart(final Context context, String uid, String pid) {
         Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
         params.put("pid", pid);
-        iDeleteCardMolde.deleteCart(params, new OnNetListener<BaseBean>() {
+        iDeleteCardMolde.deleteCart(context,params, new OnNetListener<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
                 iDelCard.Onsuccess();
@@ -36,7 +39,7 @@ public class DeleteCardPresenter {
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }

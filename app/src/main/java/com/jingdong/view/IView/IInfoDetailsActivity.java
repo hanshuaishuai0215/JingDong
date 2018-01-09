@@ -12,4 +12,5 @@ import java.util.List;
 
 public interface IInfoDetailsActivity {
     public void showList(List<InfoDetailsBean.DataBean> dataBeanList);
+    public void showSelectList(List<InfoDetailsBean.DataBean> dataBeanList);
 }

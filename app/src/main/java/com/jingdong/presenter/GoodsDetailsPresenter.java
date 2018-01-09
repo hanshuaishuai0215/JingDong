@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.GoodsDetailsBean;
 import com.jingdong.model.GoodsDetailsModel;
 import com.jingdong.model.IModel.IGoodsDetailsModel;
@@ -21,8 +24,8 @@ public class GoodsDetailsPresenter {
         iGoodsDetailsModel = new GoodsDetailsModel();
     }
 
-    public void getProductDetail(String pid) {
-        iGoodsDetailsModel.getProductDetail(pid, new OnNetListener<GoodsDetailsBean>() {
+    public void getProductDetail(final Context context, String pid) {
+        iGoodsDetailsModel.getProductDetail(context,pid, new OnNetListener<GoodsDetailsBean>() {
             @Override
             public void onSuccess(GoodsDetailsBean goodsDetailsBean) {
                 if (iPro_goodsFragment != null) {
@@ -32,14 +35,16 @@ public class GoodsDetailsPresenter {
 
             @Override
             public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
 
-
-    public void dettach() {
+    /**
+     * 销毁
+     */
+    public void Dettach() {
         iPro_goodsFragment = null;
     }
 }

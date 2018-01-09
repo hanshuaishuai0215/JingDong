@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.GoodsCardBean;
 import com.jingdong.net.OnNetListener;
 
@@ -10,5 +12,5 @@ import java.util.Map;
  * 详情:
  */
 public interface IGoodsCardModel {
-    void getCarts(Map<String, String> params, OnNetListener<GoodsCardBean> onNetListener);
+    void getCarts(Context context, Map<String, String> params, OnNetListener<GoodsCardBean> onNetListener);
 }

@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.BaseBean;
 import com.jingdong.net.OnNetListener;
 
@@ -10,5 +12,5 @@ import com.jingdong.net.OnNetListener;
  */
 
 public interface IRegisterModel {
-    public void register(String account, String pwd, OnNetListener<BaseBean> onNetListener);
+    public void register(Context context, String account, String pwd, OnNetListener<BaseBean> onNetListener);
 }

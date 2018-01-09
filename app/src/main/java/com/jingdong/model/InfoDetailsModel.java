@@ -1,5 +1,7 @@
 package com.jingdong.model;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.InfoDetailsBean;
 import com.jingdong.model.IModel.IInfoDetailsModel;
@@ -23,8 +25,8 @@ import okhttp3.Response;
 public class InfoDetailsModel extends BaseModel implements IInfoDetailsModel{
 
     @Override
-    public void getInfoDetails(Map<String, String> params, final OnNetListener<InfoDetailsBean> onNetListener) {
-        HttpUtils.getHttpUtils().doPost(Api.PRODUCT_CATAGORY_LIST, params, new Callback() {
+    public void getInfoDetails(Context context, Map<String, String> params, final OnNetListener<InfoDetailsBean> onNetListener) {
+        HttpUtils.getHttpUtils(context).doPost(Api.PRODUCT_CATAGORY_LIST, params, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {

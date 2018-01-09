@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.BaseBean;
 import com.jingdong.model.AddCardModel;
 import com.jingdong.model.IModel.IAddCardMolde;
@@ -24,28 +27,30 @@ public class AddCardPresenter {
         iAddCardMolde = new AddCardModel();
     }
 
-    public void addCard(String pid,String uid){
+    public void addCard(final Context context, String pid, String uid){
         Map<String, String> params = new HashMap<>();
         params.put("uid", uid);
         params.put("pid", pid);
         params.put("source", "android");
-        iAddCardMolde.addCard(params, new OnNetListener<BaseBean>() {
+        iAddCardMolde.addCard(context,params, new OnNetListener<BaseBean>() {
             @Override
             public void onSuccess(BaseBean baseBean) {
                 if (iProDetailActivity != null) {
-                    iProDetailActivity.show(baseBean.getMsg());
+                    iProDetailActivity.show(baseBean);
                 }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
-    public void dettach() {
+    /**
+     * 销毁
+     */
+    public void Dettach() {
         iProDetailActivity = null;
     }
 }

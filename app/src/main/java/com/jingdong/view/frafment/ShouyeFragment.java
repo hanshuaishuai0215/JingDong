@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +22,10 @@ import com.jingdong.bean.MyRvMiddleBean;
 import com.jingdong.bean.ShouYeBean;
 import com.jingdong.presenter.ShouYePresenter;
 import com.jingdong.utils.GlideImageLoader;
+import com.jingdong.utils.LooperTextView;
 import com.jingdong.view.IView.IShouYeFragment;
 import com.jingdong.view.InfoDetailsActivity;
+import com.jingdong.view.SelectShopActivity;
 import com.jingdong.view.ShouYeWebView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -53,15 +56,21 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
     private RecyclerView mZhuyerecycleview2;
     private TextView mShouyetuijian;
     private RecyclerView mZhuyerecycleview3;
+    /**
+     * 搜索笔记本
+     */
+    private EditText mSelectShop;
+    private LooperTextView mLtv;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.shouye_fragment, null);
         shouYePresenter = new ShouYePresenter(this);
-        shouYePresenter.getBannerUrl();
-        shouYePresenter.getMiddleViewUrl();
+        shouYePresenter.getBannerUrl(getActivity());
+        shouYePresenter.getMiddleViewUrl(getActivity());
         initView(view);
+        mLtv.setTipList(generateTips());
         return view;
     }
 
@@ -106,7 +115,7 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
             public void onItemClick(ShouYeBean.MiaoshaBean.ListBeanX listBean) {
                 //就是跳转
                 Intent intent = new Intent(getActivity(), InfoDetailsActivity.class);
-                intent.putExtra("pscid", listBean.getPscid()+"");
+                intent.putExtra("pscid", listBean.getPscid() + "");
                 getActivity().startActivity(intent);
             }
         });
@@ -117,14 +126,14 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mShouyetuijian.setText(tuijian.getName());
         GridLayoutManager manager2 = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
         mZhuyerecycleview3.setLayoutManager(manager2);
-        MyShouYeDianNaoAdapter adapter2 = new MyShouYeDianNaoAdapter(getActivity(),tuijian.getList());
+        MyShouYeDianNaoAdapter adapter2 = new MyShouYeDianNaoAdapter(getActivity(), tuijian.getList());
         mZhuyerecycleview3.setAdapter(adapter2);
         adapter2.setOnItemClickListener(new MyShouYeDianNaoAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ShouYeBean.TuijianBean.ListBean listBean) {
                 //就是跳转
                 Intent intent = new Intent(getActivity(), InfoDetailsActivity.class);
-                intent.putExtra("pscid", listBean.getPscid()+"");
+                intent.putExtra("pscid", listBean.getPscid() + "");
                 getActivity().startActivity(intent);
             }
         });
@@ -173,23 +182,40 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mZhuyerecycleview2.setOnClickListener(this);
         mShouyetuijian.setOnClickListener(this);
         mZhuyerecycleview3 = (RecyclerView) view.findViewById(R.id.zhuyerecycleview3);
+        mSelectShop = (EditText) view.findViewById(R.id.selectShop);
+        mSelectShop.setOnClickListener(this);
+        mLtv = (LooperTextView) view.findViewById(R.id.ltv);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            default:
-                break;
-            case R.id.shouyebanner:
-                break;
-            case R.id.zhuyerecycleview:
-                break;
-            case R.id.shouye_time:
-                break;
-            case R.id.zhuyerecycleview2:
-                break;
-            case R.id.shouyetuijian:
+            case R.id.selectShop:
+                Intent intent = new Intent(getActivity(), SelectShopActivity.class);
+                startActivity(intent);
                 break;
         }
+    }
+
+    /**
+     * 首页跑马灯效果
+     * @return
+     */
+    private List<String> generateTips() {
+        List<String> tips = new ArrayList<>();
+        tips.add("AI就要掌控世界了？绝对没你想得那么快！");
+        tips.add("衣服大一号,人就瘦一圈?");
+        tips.add("闪瞎:全球最贵五辆摩托车");
+        tips.add("一半受访者会被类人机器人吓跑!");
+        tips.add("深度学习索引速度更快、占用空间更少");
+        tips.add("资源| 谷歌开源TFGAN：轻量级生成对抗网络工具库?");
+        tips.add("谷歌团队越狱苹果系统");
+        return tips;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        shouYePresenter.Dettach();
     }
 }

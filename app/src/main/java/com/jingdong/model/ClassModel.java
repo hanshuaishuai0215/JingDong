@@ -1,6 +1,8 @@
 package com.jingdong.model;
 
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.jingdong.bean.Catagory;
 import com.jingdong.bean.ProductCatagoryBean;
@@ -26,8 +28,8 @@ import okhttp3.Response;
 public class ClassModel extends BaseModel implements IClassModel {
 
     @Override
-    public void getCatagory(final OnNetListener<Catagory> onNetListener) {
-        HttpUtils.getHttpUtils().doGet(Api.CLASS, new Callback() {
+    public void getCatagory(Context context, final OnNetListener<Catagory> onNetListener) {
+        HttpUtils.getHttpUtils(context).doGet(Api.CLASS, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {
@@ -53,10 +55,10 @@ public class ClassModel extends BaseModel implements IClassModel {
     }
 
     @Override
-    public void getProductCatagory(String cid, final OnNetListener<ProductCatagoryBean> onNetListener) {
+    public void getProductCatagory(Context context,String cid, final OnNetListener<ProductCatagoryBean> onNetListener) {
         Map<String, String> params = new HashMap<>();
         params.put("cid", cid);
-        HttpUtils.getHttpUtils().doPost(Api.PRODUCT_CATAGORY, params, new Callback() {
+        HttpUtils.getHttpUtils(context).doPost(Api.PRODUCT_CATAGORY, params, new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
                 handler.post(new Runnable() {

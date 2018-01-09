@@ -1,5 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import com.jingdong.bean.Catagory;
 import com.jingdong.bean.ProductCatagoryBean;
 import com.jingdong.model.ClassModel;
@@ -25,38 +28,48 @@ public class ClassPresenter {
         iclassModel = new ClassModel();
     }
 
-    public void getProductCatagory(String cid) {
-        iclassModel.getProductCatagory(cid, new OnNetListener<ProductCatagoryBean>() {
+    public void getProductCatagory(final Context context, String cid) {
+        iclassModel.getProductCatagory(context,cid, new OnNetListener<ProductCatagoryBean>() {
             @Override
             public void onSuccess(ProductCatagoryBean productCatagoryBean) {
-                //给二级列表设置数据
-                iClassActivity.showElvData(productCatagoryBean.getData());
+                if (iClassActivity != null) {
+                    //给二级列表设置数据
+                    iClassActivity.showElvData(productCatagoryBean.getData());
+                }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     //获取分类
-    public void getCatagory() {
-        iclassModel.getCatagory(new OnNetListener<Catagory>() {
+    public void getCatagory(final Context context) {
+        iclassModel.getCatagory(context,new OnNetListener<Catagory>() {
             @Override
             public void onSuccess(Catagory catagory) {
-                iClassActivity.showData(catagory.getData());
-                //拿到右侧第一条数据
-                List<Catagory.DataBean> dataBean = catagory.getData();
-                int cid = dataBean.get(0).getCid();
-                //获取右侧的数据
-                getProductCatagory(cid + "");
+                if (iClassActivity != null) {
+                    iClassActivity.showData(catagory.getData());
+                    //拿到右侧第一条数据
+                    List<Catagory.DataBean> dataBean = catagory.getData();
+                    int cid = dataBean.get(0).getCid();
+                    //获取右侧的数据
+                    getProductCatagory(context,cid + "");
+                }
             }
 
             @Override
             public void onFailure(Exception e) {
-
+                Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    /**
+     * 销毁
+     */
+    public void Dettach() {
+        iClassActivity = null;
     }
 }

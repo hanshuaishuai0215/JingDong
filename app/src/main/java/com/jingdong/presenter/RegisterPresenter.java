@@ -1,6 +1,8 @@
 package com.jingdong.presenter;
 
+import android.content.Context;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.jingdong.bean.BaseBean;
 import com.jingdong.model.IModel.IRegisterModel;
@@ -72,29 +74,37 @@ public class RegisterPresenter {
     }
 
 
-    public void register() {
+    public void register(final Context context) {
         String account = iRegisterActivity.getAccount();
         String pwd = iRegisterActivity.getPwd();
         //判断账号密码是否正确
         if (checkAccount(account) && checkPwd(pwd)) {
-            iRegisterModel.register(account, pwd, new OnNetListener<BaseBean>() {
+            iRegisterModel.register(context,account, pwd, new OnNetListener<BaseBean>() {
                 @Override
                 public void onSuccess(BaseBean baseBean) {
-                    //成功以后，回到登陆界面
-                    if (baseBean.getCode().equals("1")) {
-                        iRegisterActivity.show(baseBean.getMsg());
-                    } else {
-                    iRegisterActivity.show(baseBean.getMsg());
-                    iRegisterActivity.finishAc();
-                }
+                    if (iRegisterActivity != null) {
+                        //成功以后，回到登陆界面
+                        if (baseBean.getCode().equals("1")) {
+                            iRegisterActivity.show(baseBean.getMsg());
+                        } else {
+                            iRegisterActivity.show(baseBean.getMsg());
+                            iRegisterActivity.finishAc();
+                        }
+                    }
                 }
 
                 @Override
                 public void onFailure(Exception e) {
-
+                    Toast.makeText(context, "对于请求失败这事,就不劳揭穿了!!!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
+    }
+    /**
+     * 销毁
+     */
+    public void Dettach() {
+        iRegisterActivity = null;
     }
 }

@@ -1,5 +1,7 @@
 package com.jingdong.model.IModel;
 
+import android.content.Context;
+
 import com.jingdong.bean.BaseBean;
 import com.jingdong.net.OnNetListener;
 
@@ -12,5 +14,5 @@ import java.util.Map;
  */
 
 public interface IAddCardMolde {
-    void addCard(Map<String, String> params, OnNetListener<BaseBean> onNetListener);
+    void addCard(Context context,Map<String, String> params, OnNetListener<BaseBean> onNetListener);
 }
