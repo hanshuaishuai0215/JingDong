@@ -126,7 +126,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements View.On
             case R.id.llCard:
                 //跳转到购物车界面
                 Intent intent = new Intent(ProductDetailsActivity.this, BossActivity.class);
-                intent.putExtra("goCar",3);
+                intent.putExtra("page",3);
                 startActivity(intent);
                 break;
             case R.id.tvAddCard:

@@ -41,10 +41,10 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
-        int goCar = getIntent().getIntExtra("goCar", 0);
+        int page = getIntent().getIntExtra("page", 0);
         initView();
         newFragment();
-        goCar(goCar);
+        go(page);
     }
 
     private void newFragment() {
@@ -112,7 +112,7 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void goCar(final int page) {
+    private void go(final int page) {
         switch (page) {
             case 0:
                 mVp.setCurrentItem(0);

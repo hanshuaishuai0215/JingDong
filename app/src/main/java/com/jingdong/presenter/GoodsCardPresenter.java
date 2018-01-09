@@ -35,6 +35,10 @@ public class GoodsCardPresenter {
         iGoodsCardModel.getCarts(context,params, new OnNetListener<GoodsCardBean>() {
             @Override
             public void onSuccess(GoodsCardBean goodsCardBean) {
+                if (goodsCardBean == null ){
+                    Toast.makeText(context,"购物车还没数据呢!赶快宝贝吧!!!", Toast.LENGTH_LONG).show();
+                    return;
+                }
                 List<List<GoodsCardBean.DataBean.ListBean>> child = new ArrayList<>();
                 for (int i = 0; i < goodsCardBean.getData().size(); i++) {
                     child.add(goodsCardBean.getData().get(i).getList());

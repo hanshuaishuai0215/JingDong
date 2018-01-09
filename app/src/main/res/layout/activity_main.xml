@@ -82,4 +82,14 @@
         android:layout_marginTop="16dp"
         android:text="登录"
         android:textSize="30sp" />
+
+    <TextView
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:id="@+id/tvVisitor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/btn2"
+        android:layout_alignTop="@+id/textView"
+        android:text="游客登陆" />
 </RelativeLayout>

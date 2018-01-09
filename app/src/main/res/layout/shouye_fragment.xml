@@ -119,7 +119,8 @@
         android:layout_below="@+id/rlms"
         android:id="@+id/zhuyerecycleview2"
         android:layout_width="match_parent"
-        android:layout_height="150dp"></android.support.v7.widget.RecyclerView>
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"></android.support.v7.widget.RecyclerView>
 
     <TextView
         android:layout_below="@+id/zhuyerecycleview2"

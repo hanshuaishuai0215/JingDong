@@ -24,7 +24,6 @@ import com.jingdong.presenter.ShouYePresenter;
 import com.jingdong.utils.GlideImageLoader;
 import com.jingdong.utils.LooperTextView;
 import com.jingdong.view.IView.IShouYeFragment;
-import com.jingdong.view.InfoDetailsActivity;
 import com.jingdong.view.SelectShopActivity;
 import com.jingdong.view.ShouYeWebView;
 import com.youth.banner.Banner;
@@ -110,15 +109,6 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mZhuyerecycleview2.setLayoutManager(manager);
         MyShouYePhoneAdapter adapter = new MyShouYePhoneAdapter(getActivity(), miaoshaBean.getList());
         mZhuyerecycleview2.setAdapter(adapter);
-        adapter.setOnItemClickListener(new MyShouYePhoneAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ShouYeBean.MiaoshaBean.ListBeanX listBean) {
-                //就是跳转
-                Intent intent = new Intent(getActivity(), InfoDetailsActivity.class);
-                intent.putExtra("pscid", listBean.getPscid() + "");
-                getActivity().startActivity(intent);
-            }
-        });
         /**
          * 设置首页推荐
          */
@@ -128,15 +118,6 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mZhuyerecycleview3.setLayoutManager(manager2);
         MyShouYeDianNaoAdapter adapter2 = new MyShouYeDianNaoAdapter(getActivity(), tuijian.getList());
         mZhuyerecycleview3.setAdapter(adapter2);
-        adapter2.setOnItemClickListener(new MyShouYeDianNaoAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(ShouYeBean.TuijianBean.ListBean listBean) {
-                //就是跳转
-                Intent intent = new Intent(getActivity(), InfoDetailsActivity.class);
-                intent.putExtra("pscid", listBean.getPscid() + "");
-                getActivity().startActivity(intent);
-            }
-        });
     }
 
     /**

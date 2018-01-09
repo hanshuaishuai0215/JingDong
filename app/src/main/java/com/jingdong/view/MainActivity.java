@@ -24,12 +24,13 @@ import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
 
 import java.util.Map;
+
 /**
  * 时间:2017/12/3 21:19
  * 作者:韩帅帅
  * 详情:
  */
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,IMainActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, IMainActivity {
 
     /**
      * 分享到QQ
@@ -68,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private Button mBtnRegister;
     private MainPresenter mainPresenter;
+    /**
+     * 游客登陆
+     */
+    private TextView mTvVisitor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,19 +135,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void onStart(SHARE_MEDIA platform) {
 
         }
+
         @Override
         public void onComplete(SHARE_MEDIA platform, int action, Map<String, String> data) {
             Toast.makeText(MainActivity.this, "登录成功!!!", Toast.LENGTH_LONG).show();
             //保存uid
             SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
             SharedPreferences.Editor edit = sp.edit();
-            edit.putString("uid","1775");
-            edit.putString("uName",data.get("name"));
-            edit.putString("headimg",data.get("profile_image_url"));
+            edit.putString("uid", "1775");
+            edit.putString("uName", data.get("name"));
+            edit.putString("headimg", data.get("profile_image_url"));
             edit.commit();
             Intent intent = new Intent(MainActivity.this, BossActivity.class);
             startActivity(intent);
         }
+
         @Override
         public void onError(SHARE_MEDIA platform, int action, Throwable t) {
             Toast.makeText(MainActivity.this, "错误", Toast.LENGTH_LONG).show();
@@ -177,6 +184,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnRegister = (Button) findViewById(R.id.btn_register);
         mBtnRegister.setOnClickListener(this);
         mTextView.setOnClickListener(this);
+        mTvVisitor = (TextView) findViewById(R.id.tvVisitor);
+        mTvVisitor.setOnClickListener(this);
     }
 
     @Override
@@ -203,8 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.textView:
                 break;
+            case R.id.tvVisitor:
+                Intent intent = new Intent(MainActivity.this,BossActivity.class);
+                startActivity(intent);
+                break;
         }
     }
+
     @Override
     public String getAccount() {
         return mEtCount.getText().toString().trim();
@@ -228,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void toClassAc(LoginBean loginBean) {
-        if (loginBean.getCode().equals("1")){
+        if (loginBean.getCode().equals("1")) {
             mEtCount.setText(null);
             mEtPwd.setText(null);
             return;
@@ -236,8 +250,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //保存uid
         SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
-        edit.putString("uid",loginBean.getData().getUid()+"");
-        edit.putString("uName",loginBean.getData().getUsername());
+        edit.putString("uid", loginBean.getData().getUid() + "");
+        edit.putString("uName", loginBean.getData().getUsername());
         edit.commit();
         Intent intent = new Intent(MainActivity.this, BossActivity.class);
         startActivity(intent);

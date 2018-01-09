@@ -1,6 +1,7 @@
 package com.jingdong.view.frafment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jingdong.R;
+import com.jingdong.view.BossActivity;
 import com.jingdong.view.MainActivity;
 
 import java.io.File;
@@ -48,6 +51,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private Bitmap head;// 头像Bitmap
     private static String path = "/sdcard/myHead/";// sd路径
     private MineFragment mineFragment;
+    private LinearLayout mAddress;
 
     @Nullable
     @Override
@@ -68,6 +72,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if (parent != null) {
             parent.removeView(view);
         }
+        initView(view);
         return view;
     }
 
@@ -78,16 +83,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         mBackLogin.setOnClickListener(this);
         mHeadIv = (ImageView) view.findViewById(R.id.head_iv);
         mHeadIv.setOnClickListener(this);
+        mAddress = (LinearLayout) view.findViewById(R.id.address);
+        mAddress.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                Intent intent = new Intent(getActivity(), MainActivity.class);
-                startActivity(intent);
+                if (!mLogin.getText().equals("未登录,请登录!")) {
+                    Toast.makeText(getActivity(), "来给自己换个高大上的名字吧!!!", Toast.LENGTH_SHORT).show();
+                    updateUserName();
+                } else {
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }
                 break;
-            case R.id.backLogin:
+            case R.id.backLogin://退出登陆
                 String uid = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uid", "");
                 String uName = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uName", "");
                 if (uid.isEmpty() && uName.isEmpty()) {
@@ -98,20 +110,81 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     editor.clear();
                     editor.commit();
                     Toast.makeText(getActivity(), "成功退出登陆!!!", Toast.LENGTH_SHORT).show();
-                    mLogin.setText("未登录,请登录!");
-                    Glide.with(getActivity()).load(R.drawable.ic_default_user_head).into(mHeadIv);
+                    Intent in = new Intent(getActivity(), BossActivity.class);
+                    in.putExtra("page", 4);
+                    getActivity().startActivity(in);
                 }
                 break;
             case R.id.head_iv://点击更换头像
                 String uid1 = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uid", "");
                 String uName1 = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uName", "");
                 if (uid1.isEmpty() && uName1.isEmpty()) {
-                    Toast.makeText(getActivity(), "你还没登陆呢,怎么上传头像呢?", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "你还没登陆呢,怎么能上传头像呢?", Toast.LENGTH_SHORT).show();
                 } else {
                     showTypeDialog();
                 }
                 break;
+            case R.id.address:
+                String uid2 = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uid", "");
+                String uName2 = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uName", "");
+                if (uid2.isEmpty() && uName2.isEmpty()) {
+                    Toast.makeText(getActivity(), "你还没登陆呢,怎么能添加地址呢?", Toast.LENGTH_SHORT).show();
+                } else {
+                    inAddress();
+                }
+                break;
         }
+    }
+
+    /**
+     * 添加地址
+     */
+    private void inAddress() {
+        LayoutInflater factory = LayoutInflater.from(getActivity());//提示框
+        final View view = factory.inflate(R.layout.dialog_address, null);//这里必须是final的
+        final EditText userCity = (EditText) view.findViewById(R.id.userCity);//获得输入框对象
+        final EditText userAddress = (EditText) view.findViewById(R.id.userAddress);//获得输入框对象
+        new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setPositiveButton("确定",//提示框的两个按钮
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                //事件
+                                String city = userCity.getText().toString().trim();
+                                String address = userAddress.getText().toString().trim();
+                                if (city.length() < 5 || address.length() < 5) {
+                                    Toast.makeText(getActivity(), "地址不合法奥!!!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                        }).setNegativeButton("取消", null).create().show();
+    }
+
+    /**
+     * 修改名字
+     */
+    private void updateUserName() {
+        LayoutInflater factory = LayoutInflater.from(getActivity());//提示框
+        final View view = factory.inflate(R.layout.dialog_user_name, null);//这里必须是final的
+        final EditText userName = (EditText) view.findViewById(R.id.userName);//获得输入框对象
+        new AlertDialog.Builder(getActivity())
+                .setView(view)
+                .setPositiveButton("确定",//提示框的两个按钮
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                //事件
+                                String trim = userName.getText().toString().trim();
+                                if (trim.length() < 1) {
+                                    Toast.makeText(getActivity(), "名字不合法!!!", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                mLogin.setText(trim);
+                            }
+                        }).setNegativeButton("取消", null).create().show();
     }
 
     private void showTypeDialog() {
@@ -222,6 +295,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
     }
+
     //取消预加载  负责会提前土司
     @Override
     protected void delayLoad() {

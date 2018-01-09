@@ -113,6 +113,7 @@ public class GouwuFragment extends BaseFragment implements IGoodsCardFragment, V
         //设置适配器
         adapter = new ElvAdapter(getActivity(), group, child);
         mElv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         for (int i = 0; i < group.size(); i++) {
             mElv.expandGroup(i);
         }
@@ -146,6 +147,13 @@ public class GouwuFragment extends BaseFragment implements IGoodsCardFragment, V
                 startActivity(intent);
                 break;
             case R.id.tvCount:
+                String string = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE).getString("uid", "");
+                if (string.length() < 1) {
+                    Toast.makeText(getActivity(), "请登录!!!", Toast.LENGTH_SHORT).show();
+                }else if (priceAll < 1){
+                    Toast.makeText(getActivity(), "都没东西,怎么可以结算呢?快去挑宝贝吧!!!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 orderPresenter.createOrder(getActivity(), "72", priceAll + "");
                 break;
         }
