@@ -11,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.jingdong.R;
 import com.jingdong.adapter.MyRvMiddleAdapter;
 import com.jingdong.adapter.MyShouYeDianNaoAdapter;
@@ -23,6 +26,8 @@ import com.jingdong.bean.ShouYeBean;
 import com.jingdong.presenter.ShouYePresenter;
 import com.jingdong.utils.GlideImageLoader;
 import com.jingdong.utils.LooperTextView;
+import com.jingdong.view.BossActivity;
+import com.jingdong.view.CustomScanActivity;
 import com.jingdong.view.IView.IShouYeFragment;
 import com.jingdong.view.SelectShopActivity;
 import com.jingdong.view.ShouYeWebView;
@@ -60,6 +65,7 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
      */
     private EditText mSelectShop;
     private LooperTextView mLtv;
+    private ImageView mErClick;
 
     @Nullable
     @Override
@@ -166,6 +172,8 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mSelectShop = (EditText) view.findViewById(R.id.selectShop);
         mSelectShop.setOnClickListener(this);
         mLtv = (LooperTextView) view.findViewById(R.id.ltv);
+        mErClick = (ImageView) view.findViewById(R.id.ErClick);
+        mErClick.setOnClickListener(this);
     }
 
     @Override
@@ -175,11 +183,29 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
                 Intent intent = new Intent(getActivity(), SelectShopActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.ErClick:
+                ErClick();
+                break;
         }
     }
 
     /**
+     * 二维码扫描
+     */
+    private void ErClick() {
+        //假如你要用的是fragment进行界面的跳转
+        IntentIntegrator intentIntegrator = IntentIntegrator.forSupportFragment(ShouyeFragment.this).setCaptureActivity(CustomScanActivity.class);
+        intentIntegrator
+                .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)
+                .setPrompt("将二维码/条码放入框内，即可自动扫描")//写那句提示的话
+                .setOrientationLocked(false)//扫描方向固定
+                .setCaptureActivity(CustomScanActivity.class) // 设置自定义的activity是CustomActivity
+                .initiateScan(); // 初始化扫描
+    }
+
+    /**
      * 首页跑马灯效果
+     *
      * @return
      */
     private List<String> generateTips() {
@@ -193,7 +219,22 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         tips.add("谷歌团队越狱苹果系统");
         return tips;
     }
-
+    //获取扫描的结果
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+            } else {
+                Intent intent  = new Intent(getActivity(), BossActivity.class);
+                intent.putExtra("page",2);
+                intent.putExtra("ScanResult",intentResult.getContents());
+                startActivity(intent);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

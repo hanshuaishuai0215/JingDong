@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.jingdong"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -130,5 +130,8 @@ dependencies {
 
     //限制64k解决办法
     compile 'com.android.support:multidex:1.0.1'
+
+    //二维码
+    compile 'com.journeyapps:zxing-android-embedded:3.3.0'
 
 }

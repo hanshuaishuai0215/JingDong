@@ -3,13 +3,11 @@ package com.jingdong.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ExpandableListView;
-
 /**
  * 时间:2017/12/3 21:19
  * 作者:韩帅帅
  * 详情:
  */
-
 public class MyExpanableListView extends ExpandableListView {
     public MyExpanableListView(Context context) {
         super(context);

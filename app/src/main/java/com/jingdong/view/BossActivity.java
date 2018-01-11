@@ -36,12 +36,20 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
     private List<Fragment> list_f;
     private boolean noScroll = true; //true 代表不能滑动 //false 代表能滑动
     private RadioGroup mRg;
+    private String scanResult;
+
+    public String getScanResult() {
+        return scanResult;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
         int page = getIntent().getIntExtra("page", 0);
+        if (page == 2){
+            scanResult = getIntent().getStringExtra("ScanResult");
+        }
         initView();
         newFragment();
         go(page);

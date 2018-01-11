@@ -54,9 +54,10 @@ public class MyShouYeDianNaoAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         final ShouYeBean.TuijianBean.ListBean listBean = list.get(position);
-        Glide.with(context).load(listBean.getImages()).into(myViewHolder.iv);
+        String[] split = listBean.getImages().split("\\|");
+        Glide.with(context).load(split[0]).into(myViewHolder.iv);
         myViewHolder.xiangqing.setText(listBean.getTitle());
-        myViewHolder.price.setText(listBean.getPrice()+"");
+        myViewHolder.price.setText("￥"+listBean.getPrice());
         myViewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

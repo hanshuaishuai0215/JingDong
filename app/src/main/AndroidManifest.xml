@@ -3,6 +3,7 @@
     package="com.jingdong">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -36,10 +37,10 @@
             android:value="5a519f7ab27b0a71d3000058" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="7a98e5f4d1fede23ea0916ef766408dc"></meta-data>
+            android:value="7a98e5f4d1fede23ea0916ef766408dc" />
         <meta-data
             android:name="UMENG_CHANNEL"
-            android:value="Channel ID"></meta-data>
+            android:value="Channel ID" />
 
         <activity
             android:name=".wxapi.WXEntryActivity"
@@ -127,16 +128,18 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.WelcomeActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.WelcomeGuideActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".view.OrderListActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".view.SelectShopActivity"
-            android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".view.WelcomeFistActivity"
+        <activity
+            android:name=".view.OrderListActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.SelectShopActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".view.WelcomeFistActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -144,6 +147,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.CustomScanActivity" />
     </application>
 
 </manifest>

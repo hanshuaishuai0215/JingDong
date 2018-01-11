@@ -57,8 +57,8 @@ public class MyShouYePhoneAdapter extends RecyclerView.Adapter<RecyclerView.View
         final ShouYeBean.MiaoshaBean.ListBeanX beanX = list.get(position);
         String[] split = beanX.getImages().split("\\|");
         Glide.with(context).load(split[0]).into(myViewHolder.iv);
-        myViewHolder.price_new.setText(beanX.getPrice()+"");
-        myViewHolder.price_lod.setText(beanX.getSalenum()+"");
+        myViewHolder.price_new.setText("￥"+beanX.getPrice());
+        myViewHolder.price_lod.setText("￥"+beanX.getSalenum());
         myViewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

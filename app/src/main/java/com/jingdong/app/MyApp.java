@@ -28,7 +28,6 @@ public class MyApp extends Application {
         PushAgent mPushAgent = PushAgent.getInstance(this);
         //注册推送服务，每次调用register方法都会回调该接口
         mPushAgent.register(new IUmengRegisterCallback() {
-
             @Override
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
@@ -51,7 +50,10 @@ public class MyApp extends Application {
     public DaoSession getDaoSession() {
         return daoSession;
     }
-
+    /**
+     * 分割 Dex 支持
+     * @param base
+     */
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);

@@ -3,6 +3,7 @@ package com.jingdong.view.frafment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.jingdong.R;
+import com.jingdong.view.BossActivity;
 
 
 /**
@@ -26,11 +28,18 @@ public class FaxianFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.faxian_fragment, null);
-        initView(view);
+        initView(view,"https://h5.m.jd.com/active/faxian/list/article-list.html");
+        BossActivity bossActivity = (BossActivity) getActivity();
+        String scanResult = bossActivity.getScanResult();
+        if (!TextUtils.isEmpty(scanResult)){
+            initView(view,scanResult);
+        }else {
+            initView(view,"https://h5.m.jd.com/active/faxian/list/article-list.html");
+        }
         return view;
     }
 
-    private void initView(View view) {
+    private void initView(View view,String url) {
         mFaxianWebview = (WebView) view.findViewById(R.id.faxian_webview);
         WebSettings webSettings = mFaxianWebview.getSettings();
         //如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
@@ -40,7 +49,7 @@ public class FaxianFragment extends Fragment {
         //设置编码格式
         webSettings.setDefaultTextEncodingName("utf-8");
         //WebView加载web资源
-        mFaxianWebview.loadUrl("https://h5.m.jd.com/active/faxian/list/article-list.html");
+        mFaxianWebview.loadUrl(url);
        ///覆盖WebView默认使用第三方或系统默认浏览器打开网页的行为，使网页用WebView打开
         mFaxianWebview.setWebViewClient(new WebViewClient(){
             @Override

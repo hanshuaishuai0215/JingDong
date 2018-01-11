@@ -14,8 +14,11 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/ErClick"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/a_s" />
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,9 +52,9 @@
 
         <ImageView
             android:id="@+id/info_show_type"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="5dp"
             android:background="@drawable/a9x"/>
     </LinearLayout>
     <!--标题栏结束-->
@@ -133,7 +136,7 @@
         android:layout_below="@+id/shouyetuijian"
         android:id="@+id/zhuyerecycleview3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="1000dp">
     </android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
