@@ -57,13 +57,8 @@ public class CustomScanActivity extends AppCompatActivity implements DecoratedBa
         setContentView(R.layout.activity_custom_scan);
         swichLight = (Button) findViewById(R.id.btn_switch);
         mDBV= (DecoratedBarcodeView) findViewById(R.id.dbv_custom);
-
+        swichLight.setText("打开闪光灯");
         mDBV.setTorchListener(this);
-        if (!isLightOn){
-            swichLight.setText("打开闪光灯");
-        }else {
-            swichLight.setText("关闭闪光灯");
-        }
         // 如果没有闪光灯功能，就去掉相关按钮
         if (!hasFlash()) {
             swichLight.setVisibility(View.GONE);
@@ -79,8 +74,10 @@ public class CustomScanActivity extends AppCompatActivity implements DecoratedBa
             public void onClick(View v) {
                 if (isLightOn) {
                     mDBV.setTorchOff();
+                    swichLight.setText("打开闪光灯");
                 } else {
                     mDBV.setTorchOn();
+                    swichLight.setText("关闭闪光灯");
                 }
             }
         });
