@@ -51,6 +51,7 @@ public class WelcomeFistActivity extends AppCompatActivity implements View.OnCli
             //不是第一次进入时所要做的动作
             Intent intent = new Intent(WelcomeFistActivity.this, WelcomeGuideActivity.class);
             startActivity(intent);
+            this.finish();
         }
     }
 
@@ -58,10 +59,10 @@ public class WelcomeFistActivity extends AppCompatActivity implements View.OnCli
      * 使用RxJava实现倒计时
      */
     private void countDown() {
-        final long count = 5;
+        final long count = 4;
         //计时次数
         subscribe = Observable.interval(1, TimeUnit.SECONDS)
-                .take(6)//计时次数
+                .take(5)//计时次数
                 .map(new Func1<Long, Long>() {
                     @Override
                     public Long call(Long integer) {
@@ -83,6 +84,7 @@ public class WelcomeFistActivity extends AppCompatActivity implements View.OnCli
                         mTvTime.setText("倒计时:0秒");
                         Intent intent = new Intent(WelcomeFistActivity.this, WelcomeGuideActivity.class);
                         startActivity(intent);
+                        WelcomeFistActivity.this.finish();
                     }
 
                     @Override
@@ -112,6 +114,7 @@ public class WelcomeFistActivity extends AppCompatActivity implements View.OnCli
                 if (subscribe != null){
                     subscribe.unsubscribe();
                 }
+                this.finish();
                 break;
         }
     }

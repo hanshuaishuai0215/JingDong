@@ -164,6 +164,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
                 int c = listBean.getCount();
                 if (c <= 1) {
                     c = 1;
+                    Toast.makeText(context,"宝贝不能被减少了呢!!!",Toast.LENGTH_SHORT).show();
                 } else {
                     c--;
                 }
@@ -202,6 +203,9 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
         return true;
     }
 
+    /**
+     * 删除
+     */
     @Override
     public void Onsuccess() {
         Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show();
@@ -240,7 +244,12 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
         ImageView ivAdd;
     }
 
-
+    /**
+     * 设置数量
+     * @param listBean
+     * @param holder
+     * @param c
+     */
     private void setNum(GoodsCardBean.DataBean.ListBean listBean, ChildViewHolder holder, int c) {
         //改变bean里的那个值
         listBean.setCount(c);
@@ -310,7 +319,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
     }
 
     /**
-     * 计算钱
+     * 计算钱和数量
      */
     private PriceAndCount computePrice() {
         double sum = 0;
@@ -332,7 +341,7 @@ public class ElvAdapter extends BaseExpandableListAdapter implements IDelCard {
 
 
     /**
-     * “全选”改变状态
+     * 改变全选状态
      *
      * @param bool
      */

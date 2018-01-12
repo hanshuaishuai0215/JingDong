@@ -34,7 +34,6 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
     private RadioButton mGouwu;
     private RadioButton mMine;
     private List<Fragment> list_f;
-    private boolean noScroll = true; //true 代表不能滑动 //false 代表能滑动
     private RadioGroup mRg;
     private String scanResult;
 

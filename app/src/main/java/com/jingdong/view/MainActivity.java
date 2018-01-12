@@ -77,9 +77,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mainPresenter = new MainPresenter(this);
-        initView();
+        String string = this.getSharedPreferences("user", Context.MODE_PRIVATE).getString("uid", "");
+        if (string.length() > 1) {
+            Toast.makeText(this, "你已登陆!!!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, BossActivity.class);
+            startActivity(intent);
+            MainActivity.this.finish();
+        }else{
+            setContentView(R.layout.activity_main);
+            mainPresenter = new MainPresenter(this);
+            initView();
+        }
     }
 
     private void ShareWeb(int thumb_img) {
@@ -148,6 +156,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             edit.commit();
             Intent intent = new Intent(MainActivity.this, BossActivity.class);
             startActivity(intent);
+            MainActivity.this.finish();
         }
 
         @Override
@@ -260,6 +269,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mainPresenter.Dettach();
+        if (mainPresenter != null) {
+            mainPresenter.Dettach();
+        }
     }
 }

@@ -67,9 +67,9 @@ public class FenleiFragment extends Fragment implements IClassActivity{
       banner.setImageLoader(new GlideImageLoader());
       //设置图片集合
       List<String> images = new ArrayList<>();
-      images.add("http://img1.imgtn.bdimg.com/it/u=594559231,2167829292&fm=27&gp=0.jpg");
-      images.add("http://pic4.nipic.com/20091217/3885730_124701000519_2.jpg");
-      images.add("http://pic.58pic.com/58pic/13/74/51/99d58PIC6vm_1024.jpg");
+      images.add("http://p0.so.qhmsg.com/t0128e9a836eac62445.jpg");
+      images.add("http://p3.so.qhmsg.com/t011dcb791773ca05b8.jpg");
+      images.add("http://p0.so.qhimgs1.com/t01ef02186029159e20.jpg");
       banner.setImages(images);
       //banner设置方法全部调用完毕时最后调用
       banner.start();

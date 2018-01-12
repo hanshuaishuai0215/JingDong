@@ -28,7 +28,6 @@ public class FaxianFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.faxian_fragment, null);
-        initView(view,"https://h5.m.jd.com/active/faxian/list/article-list.html");
         BossActivity bossActivity = (BossActivity) getActivity();
         String scanResult = bossActivity.getScanResult();
         if (!TextUtils.isEmpty(scanResult)){
