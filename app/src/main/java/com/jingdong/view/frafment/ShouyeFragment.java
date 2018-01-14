@@ -174,6 +174,7 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mLtv = (LooperTextView) view.findViewById(R.id.ltv);
         mErClick = (ImageView) view.findViewById(R.id.ErClick);
         mErClick.setOnClickListener(this);
+        mZhuyerecycleview3.setNestedScrollingEnabled(false);
     }
 
     @Override

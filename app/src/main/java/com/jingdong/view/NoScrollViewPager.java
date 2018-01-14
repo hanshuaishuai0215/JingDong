@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 /**
  * 时间:2017/12/3 21:19
  * 作者:韩帅帅
- * 详情:
+ * 详情:禁止滑动
  */
 public class NoScrollViewPager extends ViewPager {
     private boolean noScroll = true;
