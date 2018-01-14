@@ -174,6 +174,7 @@ public class ShouyeFragment extends Fragment implements IShouYeFragment, View.On
         mLtv = (LooperTextView) view.findViewById(R.id.ltv);
         mErClick = (ImageView) view.findViewById(R.id.ErClick);
         mErClick.setOnClickListener(this);
+        //解决ScrollView嵌套RecyclerView导致滑动不流畅的问题
         mZhuyerecycleview3.setNestedScrollingEnabled(false);
     }
 
