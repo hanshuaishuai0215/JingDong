@@ -1,5 +1,6 @@
 package com.jingdong.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -147,6 +148,7 @@ public class BossActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        onNewIntent(new Intent());
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -111,8 +111,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                     editor.commit();
                     Toast.makeText(getActivity(), "成功退出登陆!!!", Toast.LENGTH_SHORT).show();
                     Intent in = new Intent(getActivity(), BossActivity.class);
-                    in.putExtra("page", 4);
                     getActivity().startActivity(in);
+                    getActivity().finish();
                 }
                 break;
             case R.id.head_iv://点击更换头像
@@ -324,5 +324,4 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             }
         }
     }
-
 }

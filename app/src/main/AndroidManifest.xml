@@ -140,7 +140,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.WelcomeFistActivity"
-            android:windowSoftInputMode="adjustPan">
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.customeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

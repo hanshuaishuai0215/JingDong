@@ -251,9 +251,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void toClassAc(LoginBean loginBean) {
+        mEtCount.setText(null);
+        mEtPwd.setText(null);
         if (loginBean.getCode().equals("1")) {
-            mEtCount.setText(null);
-            mEtPwd.setText(null);
             return;
         }
         //保存uid
